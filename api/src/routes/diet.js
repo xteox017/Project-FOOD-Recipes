@@ -55,32 +55,56 @@ router.get("/", async (req, res) => {
   // Obtener todos los tipos de dieta posibles
   // En una primera instancia, cuando no exista ninguno, deberán precargar la base de datos con los tipos de datos indicados por spoonacular
 
-  const allDiets = await Diet.findAll();
-  if (allDiets.length === 0) {
-    const response = await axios.get(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=52faddd5527041bfb6bce4cd86454895&number=100&addRecipeInformation=true`
-    );
-    const dietas = response.data.results.map((recipe) => {
-      return recipe.diets;
-    });
+//   const allDiets = await Diet.findAll();
+//   if (allDiets.length === 0) {
+//     const response = await axios.get(
+//       `https://api.spoonacular.com/recipes/complexSearch?apiKey=52faddd5527041bfb6bce4cd86454895&number=100&addRecipeInformation=true`
+//     );
+//     const dietas = response.data.results.map((recipe) => {
+//       return recipe.diets;
+//     });
 
-    const dietasUnidas = dietas.flat();
+//     const dietasUnidas = dietas.flat();
 
-    const dietasFiltradas = dietasUnidas.filter((d, index) => {
-      return dietasUnidas.indexOf(d) === index; //busca el primer indice de la dieta 'd' en el arreglo dietasUnidas y se fija que coincida con el index para devolverlo
-    });
+//     const dietasFiltradas = dietasUnidas.filter((d, index) => {
+//       return dietasUnidas.indexOf(d) === index; //busca el primer indice de la dieta 'd' en el arreglo dietasUnidas y se fija que coincida con el index para devolverlo
+//     });
 
-    await dietasFiltradas.forEach((d) => {
-      Diet.create({
-        name: d,
-      });
-    });
-  }
+//     await dietasFiltradas.forEach((d) => {
+//       Diet.create({
+//         name: d,
+//       });
+//     });
+//   }
 
-  const allDietsMap = allDiets.map((e) => {
-    return e.dataValues.name;
+//   const allDietsMap = allDiets.map((e) => {
+//     return e.dataValues.name;
+//   });
+//   res.status(200).send(allDietsMap);
+// });
+
+
+
+
+// ----------------------------------------------------------
+  const dietsApi = await axios.get(
+    'https://api.spoonacular.com/recipes/complexSearch?apiKey=52faddd5527041bfb6bce4cd86454895&number=100&addRecipeInformation=true'
+  );
+  const diets = dietsApi.data.results
+    .map((el) => el.diets)
+    .concat(["ketogenic"],["vegetarian"],["low foodmap"]);
+  const dietsEach = diets.flat()
+  const dietsFilter = dietsEach.filter((d, index) =>{
+    return dietsEach.indexOf(d) === index; //busca el primer indice de la dieta 'd' en el arreglo dietasUnidas y se fija que coincida con el index para devolverlo
   });
-  res.status(200).send(allDietsMap);
-});
+  await dietsFilter.forEach((d) =>{
+    Diet.findOrCreate({
+      where: {name: d}
+    })
+  })
+  const allDiets = await Diet.findAll()
+  res.status(200).send(allDiets)
+  });
+
 
 module.exports = router;

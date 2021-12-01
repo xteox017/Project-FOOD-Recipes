@@ -18,7 +18,7 @@ const getApiInfo = async () => {
       title: el.title,
       readyInMinutes: el.readyInMinutes,
       image: el.image,
-      summary: el.summary,
+      summary: el.summary ? el.summary.replace(/<[^>]*>?/gm, "") : "",
       cuisines: el.cuisines.map((el) => el),
       dishTypes: el.dishTypes.map((el) => el),
       diets: el.diets.map((el) => el),
@@ -67,4 +67,38 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) =>{
+  const {id} = req.params;
+  const recipesTotal = await getAllRecipes();
+  if(id){
+    let recipeId = await recipesTotal.filter(el => el.id == id)
+    recipeId.length?
+    res.status(200).json(recipeId) :
+    res.status(400).send('Recipe not found!')
+  }
+
+})
+
+router.post('/', async (req, res) =>{
+  const {title, summary,spoonacularScore, healthScore, analyzedInstructions, dishTypes, image, createdDb, readyInMinutes, cuisines, diets} = req.body
+
+  const recipeCreated = await Recipe.create({
+    title,
+    summary,
+    spoonacularScore,
+    healthScore,
+    analyzedInstructions,
+    dishTypes,
+    image,
+    createdDb,
+    readyInMinutes,
+    cuisines,
+  });
+
+  let dietsDb = await Diet.findAll({
+    where: {name: diets}
+  })
+  recipeCreated.addDiet(dietsDb)
+  res.send('Diet created succesfully!')
+})
 module.exports = router;
