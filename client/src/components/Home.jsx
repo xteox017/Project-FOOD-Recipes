@@ -1,18 +1,34 @@
 import React, { Fragment, useEffect } from 'react'
 import {useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRecipes } from '../actions';
+import { getRecipes, filterRecipesByDiets, filterScore, orderByName } from '../actions';
 import { Link } from 'react-router-dom';
 import Card from './Card';
+import Paged from './Paged';
+import SearchBar from './SearchBar';
+
 
 
 export default function Home(){
     const dispatch = useDispatch()
+
+
     const allRecipes = useSelector((state) => state.recipes)
+    const [orden, setOrden] = useState('')
+    const [currentPage, setCurrentPage] = useState(1)
+    const [recipesPerPage, setRecipesPerPage] = useState(9)
+    const indexOfLastRecipe = currentPage * recipesPerPage
+    const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage
+    const currentRecipes = allRecipes.slice(indexOfFirstRecipe, indexOfLastRecipe)
+    
+
+    const paged = (pageNumber) => {
+        setCurrentPage(pageNumber)
+    }
 
     useEffect(()=>{
         dispatch(getRecipes())
-    },[])
+    },[dispatch])
 
 
     function handleClick(e){
@@ -20,19 +36,47 @@ export default function Home(){
         dispatch(getRecipes());
     }
 
+    function handleFilterDiets(e){
+        e.preventDefault();
+        dispatch(filterRecipesByDiets(e.target.value))
+        setCurrentPage(1)
+    }
+    
+    // function handleFilterScore(e){
+    //     dispatch(filterScore(e.target.value))
+    // }
+    function handleFilterScore(e) {
+        e.preventDefault();
+        dispatch(filterScore(e.target.value))
+        setCurrentPage(1)
+        setOrden(`Ordenado ${e.target.value}`)
+    };
+
+    function handleSort(e){
+        e.preventDefault();
+        dispatch(orderByName(e.target.value))
+        setCurrentPage(1);
+        setOrden(`Ordenado ${e.target.value}`)
+    }
+
+    // function handleFilterCreated(e){
+    //     dispatch(filterRecipeCreated(e.target.value))
+    // }
+
     return (
         <div>
             <Link to='/recipe'> Create recipe</Link>
             <h1>Recipe's World</h1>
-            <button onClick={e=>{handleClick(e)}}>
+            <button onClick={(e)=>{handleClick(e)}}>
                 Load recipes again!
             </button>
             <div>
-                <select>
-                    <option value="az">A - Z</option>
-                    <option value="za">Z - A</option>
+                <select onChange={(e) => {handleSort(e)}}>
+                    <option value="asc">A - Z</option>
+                    <option value="des">Z - A</option>
                 </select>
-                <select>
+                <select onChange={(e) => {handleFilterDiets(e)}}>
+                    <option value="all">All</option>
                     <option value="paleolithic">Paleo</option>
                     <option value="vegan">Vegan</option>
                     <option value="dairy free">Dairy free</option>
@@ -40,22 +84,28 @@ export default function Home(){
                     <option value="pescatarian">Pescatarian</option>
                     <option value="whole 30">Whole 30</option>
                     <option value="vegetarian">Vegetarian</option>
-                    <option value="low foodmap">Low foodmap</option>
+                    <option value="fodmap friendly">Low foodmap</option>
                     <option value="gluten free">Gluten free</option>
                     <option value="ketogenic">Ketogenic</option>
                     <option value="lacto ovo vegetarian">Lacto ovo vegetarian</option>                
                 </select>
-                <select >
-                    <option value="top">Top Score</option>
-                    <option value="button">Button Score</option>
+                <select onChange={(e) => {handleFilterScore(e)}}>
+                    <option value="asc">"[0 - 100]"</option>
+                    <option value="button">"[100 - 0]"</option>
                 </select>
-                <select >
+                {/* <select onChange={e => handleFilterCreated(e)}>
                     <option value="all">All</option>
-                    <option value="api">Api</option>
-                    <option value="created">Originals recipes</option>
-                </select>
+                    <option value="created">Created Recipes</option>
+                    <option value="api">Recipes Cataloge</option>
+                </select> */}
+                <Paged
+                recipesPerPage = {recipesPerPage}
+                allRecipes={allRecipes.length}
+                paged = {paged}
+                />
+                <SearchBar/>
             {
-                allRecipes?.map(c=>{
+                currentRecipes?.map(c=>{
                     return (
                         <Fragment>
                             <Link to={"/home/" + c.id}>
