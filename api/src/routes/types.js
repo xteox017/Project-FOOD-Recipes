@@ -46,7 +46,15 @@
 const axios = require("axios");
 const { Router } = require("express");
 const { Recipe, Diet } = require("../db");
-const { API_KEY, URL_RECIPES } = process.env;
+const {
+  API_KEY,
+  API_KEY2,
+  API_KEY3,
+  API_KEY4,
+  API_KEY5,
+  API_KEY6,
+  URL_RECIPES,
+} = process.env;
 
 const router = Router();
 
@@ -88,7 +96,7 @@ router.get("/", async (req, res) => {
 
 // ----------------------------------------------------------
   const dietsApi = await axios.get(
-    'https://api.spoonacular.com/recipes/complexSearch?apiKey=52faddd5527041bfb6bce4cd86454895&number=100&addRecipeInformation=true'
+    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY6}&number=100&addRecipeInformation=true`
   );
   const diets = dietsApi.data.results
     .map((el) => el.diets)
