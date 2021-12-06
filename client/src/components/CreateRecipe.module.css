@@ -1,0 +1,106 @@
+.ack {
+    display: flex;
+    justify-content: center;
+    align-content: flex-start;
+    padding: 40px;
+    width: 80%;
+    height: 200vh;
+    margin-left: 23%;
+
+}
+
+.container {
+    width: 90%;
+    margin-top: 100px;
+}
+
+p {
+    color: rgb(201, 5, 5);
+    text-shadow: -3px -3px 1px rgb(0, 0, 0);
+    font-size: 45px;
+    margin: 50px;
+    text-align: center;
+    font-family: 'Indie Flower', cursive, bold;
+    display: inline-block;
+    margin-left: 1px;
+}
+
+.font {
+    font-family: 'Indie Flower', cursive;
+    font-size: larger;
+}
+
+.boxis {
+    background-color: rgba(255, 239, 213, 0.918);
+    border: solid #2d8579da;
+    padding: 25px;
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 20px;
+    align-content: flex-start;
+}
+
+.check {
+    display: block;
+    float: left;
+    margin-top: 20px;
+    padding-right: 10px;
+    white-space: nowrap;
+    margin-left: -25%;
+    font-family: 'Indie Flower', cursive, bold;
+    color: rgb(0, 0, 0)
+}
+
+.input:check .check {
+    background-color: #928617;
+    border: none;
+}
+
+h5 {
+    font-weight: lighter;
+    font-size: 20px;
+    text-align: center;
+    margin: auto;
+    color: rgb(104, 76, 0);
+    display: block;
+}
+
+.in {
+    vertical-align: middle;
+}
+
+.all {
+    display: flex;
+}
+
+
+
+
+
+
+
+.boton {
+    background-color: rgb(15, 114, 114);
+    box-shadow: 0px 0px 5px 1px rgb(61, 61, 61);
+    font-family: 'Indie Flower', cursive, bold;
+    border-radius: 10px;
+    border: solid 2px rgb(255, 255, 255);
+    padding: 10px 20px;
+    margin: 20px;
+    text-align: center;
+    margin-left: 165px;
+    margin-top: 55px;
+    cursor: pointer;
+    display: flex;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+
+}
+
+
+.boton:hover {
+    color: hsl(0, 5%, 85%);
+    background: none
+}

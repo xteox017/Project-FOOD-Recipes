@@ -27,7 +27,7 @@ export default function SearchBar(){
             placeholder = 'Search...'
             onChange = {(e) => handleInputChange(e)}
             spellCheck="false"
-            setName=" "
+            setName=""
             
             />
             <button type ='submit' onClick ={(e) => handleSubmit(e)}>Search</button>

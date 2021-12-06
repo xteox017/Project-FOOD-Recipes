@@ -45,6 +45,41 @@ export function getNameRecipe(name) {
   };
 }
 
+export function getDiets() {
+  return async function (dispatch) {
+    try {
+      var info = await axios.get("http://localhost:3001/types");
+      return dispatch({
+        type: "GET_DIETS",
+        payload: info.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export function postRecipe (payload){
+    return async function(dispatch){
+        const response = await axios.post("http://localhost:3001/recipe", payload)
+        console.log(response)
+        return response;
+    }
+}
+
+export function getDetail (id){
+    return async function(dispatch){
+        try{
+            var json = await axios.get(`http://localhost:3001/recipes/${id}`);
+            return dispatch({
+                type: "GET_DETAIL",
+                payload: json.data
+            })
+        } catch(error){
+            console.log(error)
+        }
+    }
+}
 // export function filterRecipeCreated(payload){
 //     return{
 //         type: 'FILTER_RECIPE_CREATED',

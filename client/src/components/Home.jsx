@@ -1,13 +1,17 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import {useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRecipes, filterRecipesByDiets, filterScore, orderByName } from '../actions';
 import { Link } from 'react-router-dom';
-import Card from './Card';
+import Cards from './Cards';
 import Paged from './Paged';
 import SearchBar from './SearchBar';
+import styled from 'styled-components'
 
 
+const Divpre = styled.div`
+    height: auto;
+`;
 
 export default function Home(){
     const dispatch = useDispatch()
@@ -104,7 +108,13 @@ export default function Home(){
                 paged = {paged}
                 />
                 <SearchBar/>
-            {
+                {
+                    (!currentRecipes.length)
+                    ? <img src={"https://monophy.com/media/Jt5i0W3Jgh77czf3F6/monophy.gif"} alt='Cargando...' />
+                    : <Divpre id='divpre'></Divpre>
+                }
+                <Cards currentRecipes={currentRecipes}/>
+            {/* {
                 currentRecipes?.map(c=>{
                     return (
                         <Fragment>
@@ -114,7 +124,7 @@ export default function Home(){
                         </Fragment>
                     )
                 })
-            }
+            } */}
                 
             </div>
         </div>
