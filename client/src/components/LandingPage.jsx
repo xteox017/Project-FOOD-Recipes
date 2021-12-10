@@ -20,15 +20,15 @@ margin: 0;
 
         /* margin: 0;
         padding: 0;
-        height: 100%;
+        height: 100vh;
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-around; */
-        transition: all 0.5s ease-in-out;
+        /* transition: all 0.5s ease-in-out;
         &:hover{
-            background-color: #f07b3f;
+            background-color: #f07b3f; */
         }
     `;
     
@@ -108,8 +108,8 @@ margin: 0;
     `;
 
     const Videox = styled.video`
-        height: 100%;
-        width: 100%;
+        height: 100vh;
+        width: 100vw;
         object-fit: cover;
     `;
 

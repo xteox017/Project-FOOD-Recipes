@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import Detail from "./components/Detail"
 import CreateRecipe from "./components/CreateRecipe.jsx"
 
+
 function App() {
   return (
     <BrowserRouter>
@@ -14,6 +15,7 @@ function App() {
           <Route exact path="/home" component={Home} />
           <Route exact path="/detail/:id" component ={Detail}/>
           <Route exact path="/recipe" component ={CreateRecipe}/>
+          
         </Switch>
       </div>
     </BrowserRouter>

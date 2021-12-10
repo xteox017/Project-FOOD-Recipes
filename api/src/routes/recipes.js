@@ -16,7 +16,7 @@ const router = Router();
 
 const getApiInfo = async () => {
   const apiUrl = await axios.get(
-    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY6}&number=100&addRecipeInformation=true`
+    `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`
   );
   const apiInfo = apiUrl.data.results.map((el) => {
     return {
@@ -38,7 +38,6 @@ const getApiInfo = async () => {
   });
   return apiInfo;
 };
-
 
 const getDbInfo = async () => {
   return await Recipe.findAll({
@@ -69,7 +68,7 @@ router.get("/", async (req, res) => {
 
     recipeName.length
       ? res.status(200).send(recipeName)
-      : res.status(404).send("That recipe does not match with our database");
+      : res.status(200).send("That recipe does not match with our database");
   } else {
     console.log(allRecipes.length);
     res.status(200).send(allRecipes);
@@ -83,7 +82,7 @@ router.get("/:id", async (req, res) => {
     let recipeId = await recipesTotal.filter((el) => el.id == id);
     recipeId.length
       ? res.status(200).json(recipeId)
-      : res.status(400).send("Recipe not found!");
+      : res.status(200).send("Recipe not found!");
   }
 });
 

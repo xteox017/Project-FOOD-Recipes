@@ -6,16 +6,20 @@ import { Link, NavLink } from 'react-router-dom';
 //Styled-Components
 
 const Body = styled.div`
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
+    
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem 1rem;
+    border: 3px solid transparent;
     `;
 
 const Span = styled.span`
     margin: 100px;
     font-size: 30px;
-    font-family: 'Raleway';
+    font-family: sans-serif;
+    border: 3px solid blue;
 `;
 
 //----------------------------------------
@@ -37,36 +41,20 @@ export default function Cards({currentRecipes, id}){
     //     </Body>
     // )
     return (
-        <Body>{
-                            currentRecipes?.map(c=> 
-                            <Card 
-                            image={c.image} 
-                            title={c.title} 
+        <Body>
+            { currentRecipes && typeof currentRecipes === 'object'?
+            currentRecipes.map(c=> <Card                         
+                    image={c.image} 
+                    title={c.title} 
                             // diets={c.diets && c.diets[0].name}
-                            diets={c.diets?.map(function(diets) {
-                                                 
-                         if(typeof diets === 'object'){                             
-                             return (
-                                 <label>{diets.name}</label>                            
-                              )                             
-                        }
-                        else {                            
-                            return(
-                                <div>
-                                    <label>{diets}</label>                                    
-                                </div>
-                            )
-                        }
-                      })}
-                    //         diets={
-                    //     c.diets
-                    //       ? c.diets
-                    //       : c.diets && c.diets[0].map((e) => e.diets)
-                    //   } 
-                            spoonacularScore={c.spoonacularScore} 
-                            id={c.id} 
-                            />
-                    ) 
+                    diets={c.diets?.map(function(diets) {
+                        if(typeof diets === 'object')
+                            {return (<li>{diets.name}</li>)}
+                        else {return(<li>{diets}</li>)}
+                            })}
+                    spoonacularScore={c.spoonacularScore} 
+                    id={c.id}/>
+                ) : <Span>Not recipes found! Sorry try again!</Span>
             }
         </Body>
     )

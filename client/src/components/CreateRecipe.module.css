@@ -1,4 +1,4 @@
-.ack {
+/* .ack {
     display: flex;
     justify-content: center;
     align-content: flex-start;
@@ -7,14 +7,14 @@
     height: 200vh;
     margin-left: 23%;
 
-}
+} */
 
-.container {
+/* .container {
     width: 90%;
     margin-top: 100px;
-}
+} */
 
-p {
+/* p {
     color: rgb(201, 5, 5);
     text-shadow: -3px -3px 1px rgb(0, 0, 0);
     font-size: 45px;
@@ -23,8 +23,8 @@ p {
     font-family: 'Indie Flower', cursive, bold;
     display: inline-block;
     margin-left: 1px;
-}
-
+} */
+/* 
 .font {
     font-family: 'Indie Flower', cursive;
     font-size: larger;
@@ -72,7 +72,7 @@ h5 {
 
 .all {
     display: flex;
-}
+} */
 
 
 
@@ -80,7 +80,7 @@ h5 {
 
 
 
-.boton {
+/* .boton {
     background-color: rgb(15, 114, 114);
     box-shadow: 0px 0px 5px 1px rgb(61, 61, 61);
     font-family: 'Indie Flower', cursive, bold;
@@ -103,4 +103,4 @@ h5 {
 .boton:hover {
     color: hsl(0, 5%, 85%);
     background: none
-}
+} */

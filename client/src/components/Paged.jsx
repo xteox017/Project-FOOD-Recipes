@@ -3,20 +3,33 @@ import styled from 'styled-components';
 
 //Styled-components
 
-const Ul = styled.ul`
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 40px 0;
-`;
+// const Ul = styled.ul`
+//     list-style: none;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     margin: 40px 0;
 
-const Li = styled.li`
+//     Li{
+//         display: inline-block;
+//         margin-right: 10px;
+//     }
+
+    
+// `;
+
+// const Li = styled.li`
     /* display: flex; */
-    align-items: center;
+    /* align-items: center;
     justify-content: center;
     margin: 20px;
     font-size: 20px;
+    cursor: pointer;
+
+    .active a{
+        background: #ce7f08;
+        
+    } */
     /* cursor: pointer;
     width: 30px;
     height: 30px;
@@ -35,7 +48,7 @@ const Li = styled.li`
 		background-color: green;
 		color: white;
 	} */
-`;
+// `;
 
 // const LiSelected = styled.li`
 //     display: flex;
@@ -53,6 +66,45 @@ const Li = styled.li`
 //     border-right: none;
 // `;
 
+const Ul = styled.ul`
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+const Li = styled.li`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+`;
+
+const LiSelected = styled.a`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    width: 20px;
+    height: 30px;
+    color: orange;
+    text-decoration:none;
+    
+
+    :active{
+       background-color: #4CAF50;
+        color: #000000; 
+    }
+    
+    :hover:not(.active) {background-color: #000000;}
+`;
+
 export default function Paged ({recipesPerPage, allRecipes, paged}){
     const pageNumbers = []
 
@@ -65,7 +117,7 @@ export default function Paged ({recipesPerPage, allRecipes, paged}){
                 {pageNumbers && 
                 pageNumbers.map(number => (
                     <Li className='number' key={number}>
-                        <a href onClick={() => paged(number)}>{number}</a>
+                        <LiSelected href onClick={() => paged(number)}>{number}</LiSelected>
 
                     </Li>
                 ))}
